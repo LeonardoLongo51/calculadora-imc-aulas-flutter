@@ -21,26 +21,7 @@ class Pessoa {
     return calcimc;
   }
 
-  classMasc() {
-    result = "";
-    if (resultado < 20.7) {
-      result += "Abaixo do peso";
-      color = Colors.blueAccent;
-    } else if (resultado < 26.4) {
-      result += "Peso ideal";
-      color = Colors.greenAccent;
-    } else if (resultado < 27.8) {
-      result += "Levemente acima do peso";
-      color = Colors.orangeAccent;
-    } else if (resultado < 31.1) {
-      result += "Acima do peso";
-      color = Colors.brown;
-    } else if (resultado > 31.1) {
-      result += "Obesidade";
-      color = Colors.redAccent;
-    }
-    resultadof = "IMC = ${resultado.toStringAsPrecision(4)}";
-  }
+
 
   void classFem() {
     result = "";
@@ -57,6 +38,27 @@ class Pessoa {
       result += "Acima do peso";
       color = Colors.brown;
     } else if (resultado > 32.3) {
+      result += "Obesidade";
+      color = Colors.redAccent;
+    }
+    resultadof = "IMC = ${resultado.toStringAsPrecision(4)}";
+  }
+
+  classMasc() {
+    result = "";
+    if (resultado < 20.7) {
+      result += "Abaixo do peso";
+      color = Colors.blueAccent;
+    } else if (resultado < 26.4) {
+      result += "Peso ideal";
+      color = Colors.greenAccent;
+    } else if (resultado < 27.8) {
+      result += "Levemente acima do peso";
+      color = Colors.orangeAccent;
+    } else if (resultado < 31.1) {
+      result += "Acima do peso";
+      color = Colors.brown;
+    } else if (resultado > 31.1) {
       result += "Obesidade";
       color = Colors.redAccent;
     }
@@ -142,6 +144,24 @@ class _HomeState extends State<Home> {
     );
   }
 
+  void calculateImc() {
+    _pessoa.peso = double.parse(_weightController.text);
+    _pessoa.altura = double.parse(_heightController.text) / 100.0;
+
+    _pessoa.resultado = _pessoa.calcularImc();
+
+    setState(() {
+      if (_resulta == 1) {
+        _pessoa.classMasc();
+      } else if (_resulta == 2) {
+        _pessoa.classFem();
+      } else {
+        msgErro(context);
+      }
+    });
+  }
+
+
   Form buildForm() {
     return Form(
       key: _formKey,
@@ -164,23 +184,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void calculateImc() {
-    _pessoa.peso = double.parse(_weightController.text);
-    _pessoa.altura = double.parse(_heightController.text) / 100.0;
-
-    _pessoa.resultado = _pessoa.calcularImc();
-
-    setState(() {
-      if (_resulta == 1) {
-        _pessoa.classMasc();
-      } else if (_resulta == 2) {
-        _pessoa.classFem();
-      } else {
-        msgErro(context);
-      }
-    });
-  }
-
   // state variable
   int _resulta = 0;
   int _radioValue;
@@ -199,6 +202,30 @@ class _HomeState extends State<Home> {
       }
     });
   }
+
+  void msgErro(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // retorna um objeto do tipo Dialog
+        return AlertDialog(
+          title: new Text("ERRO", style: TextStyle(color: Colors.purple)),
+          content: new Text("Selecione o Gênero."),
+          actions: <Widget>[
+            // define os botões na base do dialogo
+            new FlatButton(
+              child: new Text("Fechar"),
+              textColor: Colors.purple,
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   buttonClear(BuildContext context) {
     Widget cancelButton = FlatButton(
@@ -235,28 +262,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  void msgErro(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // retorna um objeto do tipo Dialog
-        return AlertDialog(
-          title: new Text("ERRO", style: TextStyle(color: Colors.purple)),
-          content: new Text("Selecione o Gênero."),
-          actions: <Widget>[
-            // define os botões na base do dialogo
-            new FlatButton(
-              child: new Text("Fechar"),
-              textColor: Colors.purple,
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   Widget sexButton() {
     return Padding(
@@ -292,21 +297,6 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget buildCalculateButton() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 25.0),
-      child: RaisedButton(
-        onPressed: () {
-          if (_formKey.currentState.validate()) {
-            calculateImc();
-          }
-        },
-        child: Text('CALCULAR', style: TextStyle(color: Colors.white)),
-        color: Colors.purple,
-      ),
-    );
-  }
-
   Widget buildTextResult() {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -329,6 +319,23 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+
+
+  Widget buildCalculateButton() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 25.0),
+      child: RaisedButton(
+        onPressed: () {
+          if (_formKey.currentState.validate()) {
+            calculateImc();
+          }
+        },
+        child: Text('CALCULAR', style: TextStyle(color: Colors.white)),
+        color: Colors.purple,
+      ),
+    );
+  }
+
 
   Widget buildTextFormField(
       {TextEditingController controller, String error, String label}) {
