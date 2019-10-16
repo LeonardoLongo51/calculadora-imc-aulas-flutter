@@ -3,13 +3,14 @@
 Aplicativo de uma calculadora de IMC criado para disciplina de Programação Mobile.
 
 Desenvolvido por:
--   Marcelo Menezes RA 0040481821025
+
 -   Leonardo Longo  RA 0040481821022
+-   Marcelo Menezes RA 0040481821025
 
 Tutorial de criação deste app: http://bit.ly/2Zry7Uh
 
 <p align="center">
-    <img src="https://i.ibb.co/dgtTYdd/img-calc.jpg" weight="800"/>
+    <img src="https://i.ibb.co/8sZtkv9/P-20191016-181235.jpg" weight="800"/>
 </p>
 
 ## Como clonar e importar
