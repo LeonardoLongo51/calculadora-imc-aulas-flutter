@@ -25,19 +25,19 @@ class Pessoa {
     result = "";
     if (resultado < 20.7) {
       result += "Abaixo do peso";
-      color = Colors.lightBlue[300];
+      color = Colors.blueAccent;
     } else if (resultado < 26.4) {
       result += "Peso ideal";
-      color = Colors.green[300];
+      color = Colors.greenAccent;
     } else if (resultado < 27.8) {
       result += "Levemente acima do peso";
-      color = Colors.orange[300];
+      color = Colors.orangeAccent;
     } else if (resultado < 31.1) {
       result += "Acima do peso";
-      color = Colors.teal;
+      color = Colors.brown;
     } else if (resultado > 31.1) {
       result += "Obesidade";
-      color = Colors.red[300];
+      color = Colors.redAccent;
     }
     resultadof = "IMC = ${resultado.toStringAsPrecision(4)}";
   }
@@ -46,19 +46,19 @@ class Pessoa {
     result = "";
     if (resultado < 19.1) {
       result += "Abaixo do peso";
-      color = Colors.lightBlue[300];
+      color = Colors.blueAccent;
     } else if (resultado < 25.8) {
       result += "Peso ideal";
-      color = Colors.green[300];
+      color = Colors.greenAccent;
     } else if (resultado < 27.3) {
       result += "Levemente acima do peso";
-      color = Colors.orange[300];
+      color = Colors.orangeAccent;
     } else if (resultado < 32.3) {
       result += "Acima do peso";
-      color = Colors.teal;
+      color = Colors.brown;
     } else if (resultado > 32.3) {
       result += "Obesidade";
-      color = Colors.red[300];
+      color = Colors.redAccent;
     }
     resultadof = "IMC = ${resultado.toStringAsPrecision(4)}";
   }
@@ -130,7 +130,7 @@ class _HomeState extends State<Home> {
       title: Center(
         child: Text('Calculadora de IMC'),
       ),
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.purple,
       actions: <Widget>[
         IconButton(
           icon: Icon(Icons.refresh),
@@ -150,7 +150,7 @@ class _HomeState extends State<Home> {
         children: <Widget>[
           sexButton(),
           buildTextFormField(
-              label: "Peso (kg)",
+              label: "Peso (Kg)",
               error: "Insira seu peso!",
               controller: _weightController),
           buildTextFormField(
@@ -202,13 +202,15 @@ class _HomeState extends State<Home> {
 
   buttonClear(BuildContext context) {
     Widget cancelButton = FlatButton(
-      child: Text("Cancelar"),
+      child: Text("NÃO"),
+      textColor: Colors.purple,
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
     Widget continueButton = FlatButton(
-      child: Text("Continuar"),
+      child: Text("SIM"),
+      textColor: Colors.purple,
       onPressed: () {
         _resulta = 0;
         resetFields();
@@ -217,8 +219,8 @@ class _HomeState extends State<Home> {
     );
     //configura o AlertDialog
     AlertDialog alert = AlertDialog(
-      title: Text("APAGAR"),
-      content: Text("Realmente deseja apagar os dados da consulta?"),
+      title: Text("APAGAR", style: TextStyle(color: Colors.purple)),
+      content: Text("DESEJA APAGAR AS INFORMAÇÕES"),
       actions: [
         cancelButton,
         continueButton,
@@ -239,12 +241,13 @@ class _HomeState extends State<Home> {
       builder: (BuildContext context) {
         // retorna um objeto do tipo Dialog
         return AlertDialog(
-          title: new Text("ERRO"),
+          title: new Text("ERRO", style: TextStyle(color: Colors.purple)),
           content: new Text("Selecione o Gênero."),
           actions: <Widget>[
             // define os botões na base do dialogo
             new FlatButton(
               child: new Text("Fechar"),
+              textColor: Colors.purple,
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -262,6 +265,7 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Radio(
+              activeColor: Colors.purple,
               value: 0,
               groupValue: _radioValue,
               onChanged: _handleRadioValueChange,
@@ -273,6 +277,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             new Radio(
+              activeColor: Colors.purple,
               value: 1,
               groupValue: _radioValue,
               onChanged: _handleRadioValueChange,
@@ -297,6 +302,7 @@ class _HomeState extends State<Home> {
           }
         },
         child: Text('CALCULAR', style: TextStyle(color: Colors.white)),
+        color: Colors.purple,
       ),
     );
   }
